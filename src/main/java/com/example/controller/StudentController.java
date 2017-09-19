@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.bean.Student;
-import com.example.dao.StudentDao;
 import com.example.exception.ExceptionHandling;
 import com.example.service.StudentService;
 
@@ -24,17 +23,14 @@ import com.example.service.StudentService;
 public class StudentController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionHandling.class);
-
-	@Autowired
-	private StudentDao studentDao;
 	@Autowired
 	private StudentService studentService;
 
 	@RequestMapping(value = "/example/students/lastName/{studentLastName}", method = RequestMethod.GET)
 	public String getStudentFirstName(@PathVariable(value = "studentLastName") String studentLastName) {
 
-		String entity =studentService.getStudentFirstName(studentLastName);
-		return entity;
+		
+		return studentService.getStudentFirstName(studentLastName);
 
 	}
 
