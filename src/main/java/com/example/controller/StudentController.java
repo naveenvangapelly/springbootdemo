@@ -22,57 +22,54 @@ import com.example.service.StudentService;
 @RestController
 public class StudentController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionHandling.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionHandling.class);
 	@Autowired
 	private StudentService studentService;
 
 	@RequestMapping(value = "/example/students/lastName/{studentLastName}", method = RequestMethod.GET)
-	public String getStudentFirstName(@PathVariable(value = "studentLastName") String studentLastName) {
+	public String getStudentByFirstName(@PathVariable(value = "studentLastName") String studentLastName) {
 
-		
 		return studentService.getStudentFirstName(studentLastName);
 
 	}
 
 	@RequestMapping(value = "/example/students/firstName/{studentFirstName}", method = RequestMethod.GET)
-	public String getStudentLastName(@PathVariable(value = "studentFirstName") String studentFirstName) {
+	public String getStudentByLastName(@PathVariable(value = "studentFirstName") String studentFirstName) {
 
-		String entity =	studentService.getStudentLastName(studentFirstName);
-		return entity;
+		return  studentService.getStudentLastName(studentFirstName);
+		
 
 	}
 
 	@RequestMapping(value = "/example/students", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.GET)
 	public List<Student> getStudents() {
 
-		List<Student> enlist =studentService.getStudents();
+		return studentService.getStudents();
 
-		return enlist;
+		 
 
 	}
 
 	@RequestMapping(value = "/example/students/{studentId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.GET)
-	public Student getstudent(@PathVariable(value = "studentId") Integer studentId) {
-		
+	public Student getstudentById(@PathVariable(value = "studentId") Integer studentId) {
+
 		LOGGER.info(" student ID is {}", studentId);
 
-		Student student = studentService.getStudent(studentId) ;
+		return studentService.getStudent(studentId);
 
-		return student;
 	}
 
 	@RequestMapping(value = "/example/students", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.POST)
 	public Student saveStudent(@RequestBody Student student) {
 
-	Student student1 = 	studentService.saveStudent(student);
-	return student1;
+		return studentService.saveStudent(student);
 
 	}
 
 	@RequestMapping(value = "/example/students/{studentId}", method = RequestMethod.DELETE)
 	public String deleteStudent(@PathVariable(value = "studentId") Integer studentId) {
-		String string =studentService.deleteStudent(studentId);
-		return  string;
+		
+		return studentService.deleteStudent(studentId);
 
 	}
 
@@ -81,12 +78,11 @@ public class StudentController {
 		return studentService.countByFirstName(firstName);
 	}
 
-
 	@RequestMapping(value = "/example/students/upload/", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, method = RequestMethod.POST)
 	public List<Student> uploadFile(@RequestPart(value = "file") MultipartFile file) throws IOException {
 
-		List<Student> list1 =	studentService.uploadFile(file);
-		return list1 ;
+		return  studentService.uploadFile(file);
+		
 
 	}
 }

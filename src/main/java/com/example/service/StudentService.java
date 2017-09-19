@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.bean.Student;
 import com.example.dao.StudentDao;
 import com.example.entity.StudentEntity;
+import com.example.exception.domain.AccountFirstNameNotFoundException;
 import com.example.exception.domain.AccountIdNotFoundException;
 import com.example.utils.StudentUtils;
 
@@ -67,7 +68,7 @@ public class StudentService {
 		
 		StudentEntity entity = studentDao.getStudentFirstName(studentLastName);
 		if(entity == null){
-			throw new RuntimeException();
+			throw new AccountFirstNameNotFoundException("student not found " + studentLastName);
 		}
 		
 		return entity.getFirstname();
