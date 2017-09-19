@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.bean.Student;
 import com.example.dao.StudentDao;
 import com.example.entity.StudentEntity;
-import com.example.exception.ExceptionHandling;
 import com.example.exception.domain.AccountIdNotFoundException;
 import com.example.utils.StudentUtils;
 
@@ -33,7 +32,7 @@ public class StudentService {
 		StudentEntity entity = studentDao.getStudent(studentId);
 		if(entity  == null){
 			
-		throw new AccountIdNotFoundException();
+		throw new AccountIdNotFoundException("student not found " + studentId);
 		}
 		student.setId(entity.getId());
 		student.setFirstname(entity.getFirstname());

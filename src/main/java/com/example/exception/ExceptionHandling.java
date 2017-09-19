@@ -76,8 +76,8 @@ public class ExceptionHandling {
     @ResponseBody
     public OperationsErrorBean handleGlobalException(final HttpServletRequest request, final Exception ex) {
         LOGGER.error("Unhandled Exception Occurred: ", ex);
-        return errorResponse("1000", messageHandler.localizeErrorMessage("error.1000"), "", request.getRequestURI(),
-                request.getAttribute("startTime").toString());
+        return errorResponse("1000", "Unhandled Exception Occurred: ", "", request.getRequestURI(),
+        		DateUtils.getUTCDate());
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -86,16 +86,16 @@ public class ExceptionHandling {
     @ResponseBody
     public OperationsErrorBean handleSQLException(final HttpServletRequest request, final Exception ex) {
         LOGGER.error("Database Exception Occurred: ", ex);
-        return errorResponse("1001", messageHandler.localizeErrorMessage("error.1001"), "", request.getRequestURI(),
-                request.getAttribute("startTime").toString());
+        return errorResponse("1001", "Database Exception Occurred: ", "", request.getRequestURI(),
+        		DateUtils.getUTCDate());
     }
     
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(value = { AccountIdNotFoundException.class })
     @ResponseBody
     public OperationsErrorBean handleAcoountIdNotFoundException(final HttpServletRequest request, final Exception ex) {
-        LOGGER.error("Database Exception Occurred: ", ex);
-        return errorResponse("1002", "The requested resource was not found.", "", request.getRequestURI(),
+        LOGGER.error("Account Id Not Found Exception Occurred: ", ex);
+        return errorResponse("1002", "The requested resource was not found.", ex.getMessage(), request.getRequestURI(),
         		DateUtils.getUTCDate());
     }
 
