@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.example.exception.domain.AccountFirstNameNotFoundException;
 import com.example.exception.domain.AccountIdNotFoundException;
 
 @EnableWebMvc
@@ -93,12 +94,21 @@ public class ExceptionHandling {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(value = { AccountIdNotFoundException.class })
     @ResponseBody
-    public OperationsErrorBean handleAcoountIdNotFoundException(final HttpServletRequest request, final Exception ex) {
+    public OperationsErrorBean handleAccountIdNotFoundException(final HttpServletRequest request, final Exception ex) {
         LOGGER.error("Account Id Not Found Exception Occurred: ", ex);
         return errorResponse("1002", "The requested resource was not found.", ex.getMessage(), request.getRequestURI(),
         		DateUtils.getUTCDate());
     }
-
+    
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(value = { AccountFirstNameNotFoundException.class })
+    @ResponseBody
+    public OperationsErrorBean handleAccountFirstNameNotFoundException(final HttpServletRequest request, final Exception ex) {
+        LOGGER.error("Account FirstName Not Found Exception Occurred: ", ex);
+        return errorResponse("1003", "The requested resource was not found.", ex.getMessage(), request.getRequestURI(),
+        		DateUtils.getUTCDate());
+    }
+    
    
     public OperationsErrorBean errorResponse(final String errorCode, final String errorMessage,
             final String errorFieldName, final String errorUrl, final String timeStamp) {
